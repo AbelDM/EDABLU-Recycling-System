@@ -1,0 +1,74 @@
+Algoritmo Reciclador
+	Definir tipo,conteoBo,conteoTa,conteoLa, op Como Entero
+	Definir precioBo, precioTa, precioLa,montoBo,montoLa,montoTa,total Como Real
+	Definir otros Como Caracter
+	
+	conteoBo <- 0
+	conteoLa <- 0
+	conteoTa <- 0
+	precioBo <- 1.25
+	percioLa <- 0.75
+	precioTa <- 0.25
+	recaudacion <- 'S'
+	finalizar <- 'S'
+	Mientras recaudacion='S' Hacer
+		Escribir 'Ingrese tipo Botella 500ml(1) , Botella 1L(2) , Botella 2L(3)'
+		Leer tipo
+		Segun tipo  Hacer
+			1:
+				conteoBo <- conteoBo+1
+				Escribir 'Ingresar otro material (S/N)'
+				Leer recaudacion
+			2:
+				conteoTa <- conteoTa+1
+				Escribir 'Ingresar otro material (S/N)'
+				Leer recaudacion
+			3:
+				conteoLa <- conteoLa+1
+				Escribir 'Ingresar otro material (S/N)'
+				Leer recaudacion
+			De Otro Modo:
+				Escribir 'Eligio una opcion erronea'
+				Escribir 'Ingresar otro material (S/N)'
+				Leer recaudacion
+		FinSegun
+	FinMientras
+	montoBo <- conteoBo*precioBo
+	montoLa <- conteoLa*precioLa
+	montoTa <- conteoTa*precioTa
+	Escribir 'Total Botella 500ml >>> ',conteoBo,'S/ ',montoBo
+	Escribir 'Total Botella 1L >>> ',conteoTa,'S/ ',montoTa
+	Escribir 'Total Botella 2L >>> ',conteoLa,'S/ ',montoLa
+	total <- montoBo+montoTa+montoLa
+	Escribir '¿Que operacion desea realizar?'
+	Escribir '1) Recargar Tarjeta'
+	Escribir '2) Donar'
+	Escribir '3) Cobrar monto recaudado'
+	Leer op
+	Mientras finalizar='S' Hacer
+		Segun op  Hacer
+			1:
+				Escribir 'Ingrese numero de tarjeta'
+				Leer otros
+				Escribir 'Se recargo ',total,' a la tarjeta N° ',otros
+				Escribir '*******************************'
+				Escribir 'Sigue reciclando para obtener más beneficios'
+				finalizar <- 'N'
+			2:
+				Escribir 'Ingrese su nombre completo'
+				Leer otros
+				Escribir otros,' acaba de donar ',total,' a la fundacion Caritas'
+				Escribir '*******************************'
+				Escribir 'Muchas gracias por donar, tu contribución es valiosa'
+				finalizar <- 'N'
+			3:
+				Escribir 'Monto a cobrar ',total
+				Escribir '*******************************'
+				Escribir 'Gracias por contribuir a cuidar nuestro planeta'
+				finalizar <- 'N'
+			De Otro Modo:
+				Escribir 'Opcion incorrecta'
+				finalizar <- 'S'
+		FinSegun
+	FinMientras
+FinAlgoritmo
