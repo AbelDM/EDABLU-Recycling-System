@@ -1,46 +1,151 @@
 Algoritmo Reciclador
-	Definir tipo,conteoBo,conteoTa,conteoLa, op Como Entero
-	Definir precioBo, precioTa, precioLa,montoBo,montoLa,montoTa,total Como Real
+	Definir fundName,num,tipoBo,tipoLa,tipoTa,material,conteoBo1,conteoBo2,conteoBo3,conteoLa1,conteoLa2,conteoTa1,conteoTa2, op, funds Como Entero
+	Definir precioBo1,precioBo2,precioBo3,precioLa1,precioLa2,precioTa1,precioTa2,montoBo1,montoBo2,montoBo3,montoLa1,montoLa2,montoTa1,montoTa2,montoTotal,totalBo,totalLa,totalTa Como Real
 	Definir otros Como Caracter
 	
-	conteoBo <- 0
-	conteoLa <- 0
-	conteoTa <- 0
-	precioBo <- 1.25
-	percioLa <- 0.75
-	precioTa <- 0.25
+	conteoBo1 <- 0
+	conteoBo2 <- 0
+	conteoBo3 <- 0
+	conteoLa1 <- 0
+	conteoLa2 <- 0
+	conteoTa1 <- 0
+	conteoTa2 <- 0
+	precioBo1 <- 0.30
+	precioBo2 <- 0.50
+	precioBo3 <- 0.70
+	precioLa1 <- 0.30
+	precioLa2 <- 0.50
+	precioTa1 <- 0.020
+	precioTa2 <- 0.030
 	recaudacion <- 'S'
 	finalizar <- 'S'
+	
+	Escribir '**Bienvenido al Sistema de Bio Reciclaje EDABLU**'
+	Escribir '-------------------------------------------------'
+	Escribir 'Con su reciclaje ayuda a salvar a nuestro planeta'
+	Escribir '-------------------------------------------------'
+	
 	Mientras recaudacion='S' Hacer
-		Escribir 'Ingrese tipo Botella 500ml(1) , Botella 1L(2) , Botella 2L(3)'
-		Leer tipo
-		Segun tipo  Hacer
-			1:
-				conteoBo <- conteoBo+1
-				Escribir 'Ingresar otro material (S/N)'
-				Leer recaudacion
-			2:
-				conteoTa <- conteoTa+1
-				Escribir 'Ingresar otro material (S/N)'
-				Leer recaudacion
-			3:
-				conteoLa <- conteoLa+1
-				Escribir 'Ingresar otro material (S/N)'
-				Leer recaudacion
-			De Otro Modo:
-				Escribir 'Eligio una opcion erronea'
-				Escribir 'Ingresar otro material (S/N)'
-				Leer recaudacion
-		FinSegun
+		Escribir '¿Qué material desea reciclar?'
+		Escribir '1) Botella, 2) Lata, 3)Tapa'
+		Leer material
+		
+		Si ((material>=1)y(material<=3))Entonces
+			Si(material=1)Entonces
+				Escribir 'Ingrese tipo Botella 500ml(1) , Botella 1L(2) , Botella 2L(3)'
+				Leer tipoBo
+				Segun tipoBo  Hacer
+					1:
+						conteoBo1 <- conteoBo1+1
+						Escribir '¿Cuántas botellas de este tamaño desea ingresar?'
+						Leer num
+						Escribir '¿Desea ingresar otro material? (S/N)'
+						Leer recaudacion
+						conteoBo1=(num*conteoBo1)
+					2:
+						conteoBo2 <- conteoBo2+1
+						Escribir '¿Cuántas botellas de este tamaño desea ingresar?'
+						Leer num
+						Escribir '¿Desea ingresar otro material? (S/N)'
+						Leer recaudacion
+						conteoBo2=(num*conteoBo2)
+					3:
+						conteoBo3 <- conteoBo3+1
+						Escribir '¿Cuántas botellas de este tamaño desea ingresar?'
+						Leer num
+						Escribir '¿Desea ingresar otro material? (S/N)'
+						Leer recaudacion
+						conteoBo3=(num*conteoBo3)
+						
+					De Otro Modo:
+						Escribir 'Eligió una opcion erronea'
+						Escribir '¿Desea volver a ingresar un material? (S/N)'
+						Leer recaudacion
+				FinSegun
+			SiNo
+				Si(material=2)Entonces
+					Escribir 'Ingrese tipo de Lata 150ml(1) , 355ml(2)'
+					Leer tipoLa
+					Segun tipoLa Hacer
+						1:
+							conteoLa1 <- conteoLa1+1
+							Escribir '¿Cuántas Latas de este tamaño desea ingresar?'
+							Leer num
+							Escribir '¿Desea ingresar otro material de reciclaje? (S/N)'
+							Leer recaudacion
+							conteoLa1=(num*conteoLa1)
+						2:
+							conteoLa2 <- conteoLa2+1
+							Escribir '¿Cuántas Latas de este tamaño desea ingresar?'
+							Leer num
+							Escribir '¿Desea ingresar otro material de reciclaje?(S/N)'
+							Leer recaudacion
+							conteoLa2=(num*conteoLa2)
+							
+						De Otro Modo:
+							Escribir 'Eligió un tamaño no válido'
+							Escribir 'Por favor ingrese el tamaño nuevamente'
+					FinSegun
+				SiNo
+					Si(material=3)Entonces
+						Escribir 'Ingrese tipo de tapa aluminio(1) , plastico(2)'
+						Leer tipoTa
+						Segun tipoTa Hacer
+							1:
+								conteoTa1 <- conteoTa1+1
+								Escribir '¿Cuántas Tapas de este tipo desea ingresar?'
+								Leer num
+								Escribir '¿Desea ingresar otro material de reciclaje? (S/N)'
+								Leer recaudacion
+								conteoTa1=(num*conteoTa1)
+							2:
+								conteoTa2 <- conteoTa2+1
+								Escribir '¿Cuántas Tapas de este tipo desea ingresar?'
+								Leer num
+								Escribir '¿Desea ingresar otro material de reciclaje? (S/N)'
+								Leer recaudacion
+								conteoTa2=(num*conteoTa2)
+								
+							De Otro Modo:
+								Escribir 'Eligió un tipo de tapa no válido'
+								Escribir 'Por favor ingrese nuevamente'
+						FinSegun
+					FinSi
+				FinSi
+			FinSi
+		SiNo
+			Escribir 'Opción no válida'
+			Escribir 'Por favor elija un material nuevamente'
+		FinSi		
 	FinMientras
-	montoBo <- conteoBo*precioBo
-	montoLa <- conteoLa*precioLa
-	montoTa <- conteoTa*precioTa
-	Escribir 'Total Botella 500ml >>> ',conteoBo,'S/ ',montoBo
-	Escribir 'Total Botella 1L >>> ',conteoTa,'S/ ',montoTa
-	Escribir 'Total Botella 2L >>> ',conteoLa,'S/ ',montoLa
-	total <- montoBo+montoTa+montoLa
-	Escribir '¿Que operacion desea realizar?'
+	
+	Escribir 'Información General de la Operación'
+	Escribir '***********************************'
+	montoBo1 <- conteoBo1*precioBo1
+	montoBo2 <- conteoBo2*precioBo2
+	montoBo3 <- conteoBo3*precioBo3
+	Escribir 'Total Botella 500ml: ','> ',conteoBo1,' <',' S/. ',montoBo1,' Soles'
+	Escribir 'Total Botella 1L: ','> ',conteoBo2,' <',' S/. ',montoBo2,' Soles'
+	Escribir 'Total Botella 2L: ','> ',conteoBo3,' <',' S/. ',montoBo3,' Soles'
+	totalBo <- montoBo1+montoBo2+montoBo3
+	
+	montoLa1 <- conteoLa1*precioLa1
+	montoLa2 <- conteoLa2*precioLa2
+	Escribir 'Total Lata 150ml: ','> ',conteoLa1,' <',' S/. ',montoLa1,' Soles'
+	Escribir 'Total Lata 355ml: ','> ',conteoLa2,' <',' S/. ',montoLa2,' Soles'
+	totalLa <- montoLa1+montoLa2
+	
+	montoTa1 <- conteoTa1*precioTa1
+	montoTa2 <- conteoTa2*precioTa2
+	Escribir 'Total de tapas de aluminio: ','> ',conteoTa1,' <',' S/. ',montoTa1,' Soles'
+	Escribir 'Total de tapas de plástico: ','> ',conteoTa2,' <',' S/. ',montoTa2,' Soles'
+	totalTa <- montoTa1+montoTa2
+	Escribir '***********************************'
+	montoTotal <- montoBo1+montoBo2+montoBo3+montoLa1+montoLa2+montoTa1+montoTa2
+	Escribir 'El monto total de su reciclaje es: ',' S/.',montoTotal,' Soles'
+
+	Escribir '***********************************'
+	Escribir '¿Que operación desea realizar?'
 	Escribir '1) Recargar Tarjeta'
 	Escribir '2) Donar'
 	Escribir '3) Cobrar monto recaudado'
@@ -48,23 +153,62 @@ Algoritmo Reciclador
 	Mientras finalizar='S' Hacer
 		Segun op  Hacer
 			1:
-				Escribir 'Ingrese numero de tarjeta'
+				Escribir 'Ingrese número de tarjeta'
 				Leer otros
-				Escribir 'Se recargo ',total,' a la tarjeta N° ',otros
+				Escribir '*******************************'
+				Escribir 'Se recargo ',' S/.',montoTotal,' Soles',' a la tarjeta N° ',otros
 				Escribir '*******************************'
 				Escribir 'Sigue reciclando para obtener más beneficios'
 				finalizar <- 'N'
 			2:
+				Escribir 'Donar es amor al prójimo'
+				Escribir '***********************************'
 				Escribir 'Ingrese su nombre completo'
 				Leer otros
-				Escribir otros,' acaba de donar ',total,' a la fundacion Caritas'
+				Escribir '***********************************'
+				Escribir 'Fundaciones donde puede hacer una donación'
+				Escribir '1) Caritas del Perú'
+				Escribir '2) Save The Children'				
+				Escribir '3) ANIQUEM'
+				Escribir '4) INABIF'
+				Escribir '***********************************'
+				Escribir 'Seleccione a que fundación desea hacer su donación'
+				Leer funds
+				
+				Segun funds Hacer
+					1:
+						Escribir '***********************************'
+						Escribir 'Fundación Caritas del Perú agradece su donación'						
+						Escribir 'Con su donación miles de niños irán a la escuela'
+					2:
+						Escribir '***********************************'
+						Escribir 'Save The Children agradece su donación'						
+						Escribir 'Con su apoyo ayuda a prevenir la violencia contra los niños'
+					3:
+						Escribir '***********************************'
+						Escribir 'ANIQUEM agradece su donación'						
+						Escribir 'Con su apoyo ayuda a curar a más niños que sufren quemaduras'
+					4:
+						Escribir '***********************************'
+						Escribir 'INABIF'
+						Escribir 'Con su contribución ayudará a alimentar muchos niños peruanos'
+						
+					De Otro Modo:
+						Escribir '***********************************'
+						Escribir 'Opción no válida'
+						Escribir 'Vuelva a elegir una fundación por favor'
+				FinSegun
+				
 				Escribir '*******************************'
-				Escribir 'Muchas gracias por donar, tu contribución es valiosa'
+				Escribir otros,' acaba de donar ',' S/.',montoTotal,' Soles'
+				Escribir '*******************************'
 				finalizar <- 'N'
 			3:
-				Escribir 'Monto a cobrar ',total
+				Escribir '*******************************'
+				Escribir 'Monto a cobrar ',' S/.',montoTotal,' Soles'
 				Escribir '*******************************'
 				Escribir 'Gracias por contribuir a cuidar nuestro planeta'
+				Escribir '***********************************'
 				finalizar <- 'N'
 			De Otro Modo:
 				Escribir 'Opcion incorrecta'
