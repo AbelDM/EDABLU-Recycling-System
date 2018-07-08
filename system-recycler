@@ -1,8 +1,95 @@
-Algoritmo Reciclador
-	Definir fundName,num,tipoBo,tipoLa,tipoTa,material,conteoBo1,conteoBo2,conteoBo3,conteoLa1,conteoLa2,conteoTa1,conteoTa2, op, funds Como Entero
-	Definir precioBo1,precioBo2,precioBo3,precioLa1,precioLa2,precioTa1,precioTa2,montoBo1,montoBo2,montoBo3,montoLa1,montoLa2,montoTa1,montoTa2,montoTotal,totalBo,totalLa,totalTa Como Real
-	Definir otros Como Caracter
+Funcion HORA_RECICLAJE
+	//Variables
+	horas<-03
+	minutos<-45
+	segundos<-23
 	
+	//Aumentar en un segundo
+	segundos<-segundos+1
+	
+	//Comprobar el tiempo
+	Si segundos=60 Entonces
+		//Un minuto mas
+		minutos<-minutos+1
+		//Reiniciamos los segundos
+		segundos<-0
+		
+		Si minutos=60 Entonces
+			//Una hora mas
+			horas<-horas+1
+			//Reiniciamos los minutos
+			minutos<-0
+			Si horas=24 Entonces
+				//Reiniciamos las horas
+				horas<-0
+			FinSi
+		Fin Si
+	FinSi
+	Esperar 1 segundos
+	Escribir 'Hora de operación: ',horas,':',minutos,':',segundos,' horas'
+FinFuncion
+
+Funcion FECHA_RECICLAJE
+	Definir fechaR,dia,mes,año como real
+	//FORMATO FECHA //
+	año <- 2018
+	Limpiar Pantalla
+	Escribir 'Ingrese fecha de hoy'
+	Escribir ' '
+	Escribir 'Digite el mes'
+	Escribir '__/___/',año
+	Leer mes
+	Mientras mes <=0 o mes>=13 Hacer
+		Limpiar Pantalla
+		Escribir 'Ingrese fecha de hoy'
+		Escribir ' '
+		Escribir 'Digite el mes'
+		Escribir '__/__/',año
+		Escribir 'El mes solo puede variar del 1 al 12'
+		Escribir 'Digite el mes nuevamente'
+		Leer mes
+	FinMientras
+	Si año mod 4=0 Entonces
+		Si mes=2 Entonces
+			limDia <- 29
+		SiNo
+			si mes=1 o mes=3 o mes=5 o mes=7 o mes=8 o mes=10 o mes=12 Entonces
+				limDia <- 31
+			SiNo
+				limDia <- 30
+			FinSi
+		FinSi
+	SiNo
+		si mes=2 Entonces
+			limDia <- 28
+		SiNo
+			si mes=1 o mes=3 o mes=5 o mes=7 o mes=8 o mes=10 o mes=12 Entonces
+				limDia <- 31
+			SiNo
+				limDia <- 30
+			FinSi
+		FinSi
+	FinSi
+	Mientras dia<=0 o dia>limDia Hacer
+		Limpiar Pantalla	
+		Escribir 'Ingrese fecha de hoy'
+		Escribir ' '
+		Escribir 'Digite el día'	
+		Escribir '__/',mes,'/',año
+		Leer dia
+	FinMientras
+Limpiar Pantalla
+	Escribir 'Fecha de impresión: ',dia,'/',mes,'/',año
+	//FIN FORMATO FECHA //
+Fin Funcion
+
+Algoritmo Sistema_Bio_Reciclaje_EDABLU
+	//DECLARACIÓN DE VARIABLES
+	Definir pass,pass1,intento,enter,num,passTarj,tipoBo,tipoLa,tipoTa,material,conteoBo1,conteoBo2,conteoBo3,conteoLa1,conteoLa2,conteoTa1,conteoTa2, op, funds Como Entero
+	Definir precioBo1,precioBo2,precioBo3,precioLa1,precioLa2,precioTa1,precioTa2,montoBo1,montoBo2,montoBo3,montoLa1,montoLa2,montoTa1,montoTa2,montoTotal,totalBo,totalLa,totalTa,pesoBo1,pesoBo2,pesoBo3,PesoLa1,PesoLa2,PesoTa1,pesoTa2,pesoTotal Como Real
+	Definir RecyclerName,user1,user Como Caracter
+	Definir logIn como cadena
+	//CONTADORES Y VARIABLES SECUNDARIAS
 	conteoBo1 <- 0
 	conteoBo2 <- 0
 	conteoBo3 <- 0
@@ -10,188 +97,527 @@ Algoritmo Reciclador
 	conteoLa2 <- 0
 	conteoTa1 <- 0
 	conteoTa2 <- 0
-	precioBo1 <- 0.30
-	precioBo2 <- 0.50
-	precioBo3 <- 0.70
-	precioLa1 <- 0.30
-	precioLa2 <- 0.50
-	precioTa1 <- 0.020
-	precioTa2 <- 0.030
+	precioBo1 <- 0.20
+	precioBo2 <- 0.30
+	precioBo3 <- 0.50
+	precioLa1 <- 0.15
+	precioLa2 <- 0.30
+	precioTa1 <- 0.10
+	precioTa2 <- 0.05
+	pesoTotal <- 0
 	recaudacion <- 'S'
 	finalizar <- 'S'
+	card <- 'S'
+	logIn <- 'Salir'
+	intento <- 3
+	user1 <- 'abel'
+	pass1 <- 123
 	
-	Escribir '**Bienvenido al Sistema de Bio Reciclaje EDABLU**'
+	//INICIO
+	Escribir '** Bienvenido(a) al Sistema de Bio Reciclaje EDABLU **'
 	Escribir '-------------------------------------------------'
-	Escribir 'Con su reciclaje ayuda a salvar a nuestro planeta'
+	Escribir '*** Reciclando ayudas a salvar nuestro planeta ***'
 	Escribir '-------------------------------------------------'
 	
-	Mientras recaudacion='S' Hacer
-		Escribir '¿Qué material desea reciclar?'
-		Escribir '1) Botella, 2) Lata, 3)Tapa'
-		Leer material
+	Repetir
+		//INGRESO Y LOG IN
+		Escribir 'Elija una opción de ingreso'
+		Escribir '   '
+		Escribir '1) Ingresar en Modo Libre'
+		Escribir '2) Ingresar a mi cuenta'
+		Escribir '3) Crear una cuenta EDABLU'
+		Escribir ' '
+		Leer enter
 		
-		Si ((material>=1)y(material<=3))Entonces
-			Si(material=1)Entonces
-				Escribir 'Ingrese tipo Botella 500ml(1) , Botella 1L(2) , Botella 2L(3)'
-				Leer tipoBo
-				Segun tipoBo  Hacer
-					1:
-						conteoBo1 <- conteoBo1+1
-						Escribir '¿Cuántas botellas de este tamaño desea ingresar?'
-						Leer num
-						Escribir '¿Desea ingresar otro material? (S/N)'
-						Leer recaudacion
-						conteoBo1=(num*conteoBo1)
-					2:
-						conteoBo2 <- conteoBo2+1
-						Escribir '¿Cuántas botellas de este tamaño desea ingresar?'
-						Leer num
-						Escribir '¿Desea ingresar otro material? (S/N)'
-						Leer recaudacion
-						conteoBo2=(num*conteoBo2)
-					3:
-						conteoBo3 <- conteoBo3+1
-						Escribir '¿Cuántas botellas de este tamaño desea ingresar?'
-						Leer num
-						Escribir '¿Desea ingresar otro material? (S/N)'
-						Leer recaudacion
-						conteoBo3=(num*conteoBo3)
-						
-					De Otro Modo:
-						Escribir 'Eligió una opcion erronea'
-						Escribir '¿Desea volver a ingresar un material? (S/N)'
-						Leer recaudacion
-				FinSegun
-			SiNo
-				Si(material=2)Entonces
-					Escribir 'Ingrese tipo de Lata 150ml(1) , 355ml(2)'
+		Limpiar Pantalla
+		Segun enter Hacer
+			1: 
+				Escribir 'Bienvenido al Modo Libre'
+				Escribir ' '
+				Escribir 'Por favor, ingrese su nombre'
+				leer RecyclerName
+				Limpiar Pantalla
+			2:
+				Limpiar Pantalla
+				Escribir 'Iniciar sesión'
+				Escribir '  '
+				Escribir 'Ingrese su USUARIO'
+				Leer user
+				Escribir 'Ingrese su CONTRASEÑA'
+				Leer pass
+				
+				Repetir					
+					Si user=user1 y pass=pass1 Entonces
+						Escribir '  '
+						Limpiar Pantalla
+						Escribir 'BIENVENIDO/A AL SISTEMA DE BIO RECICLAJE EDABLU'
+						Escribir '  '
+						logIn='Salir'
+					SiNo
+						Si intento!=0 Entonces
+							Limpiar Pantalla
+							Escribir 'Usuario y Contraseña incorrecta'
+							Escribir 'Le quedan ',intento,' intentos'
+							Escribir 'Ingrese nuevamente su USUARIO'
+							Leer user
+							Escribir 'Ingrese nuevamente su CONTRASEÑA'
+							Leer pass
+						SiNo
+							Escribir 'Superaste el límite de intentos'
+							Escribir 'Intentelo en breve nuevamente'
+							logIn='Salir'
+						FinSi
+					FinSi
+					intento <- intento-1					
+				Hasta Que logIn='Salir'
+			3:
+				Repetir
+					Escribir ' '
+					Escribir 'Creación de cuenta EDABLU'
+					Escribir '  '
+					Escribir 'Crea su nombre de usuario'
+					Leer userNew
+					Escribir 'Crea su contraseña'
+					Leer passNew				
+					si userNew='usuario' & passNew='contraseña' Entonces
+						Escribir 'Ha creado su cuenta satisfactoriamente'					
+					SiNo
+						Limpiar Pantalla
+						Escribir ' '
+						Escribir 'Intento de creación fallida'
+					FinSi
+				Hasta Que userNew='usuario' & passNew='contraseña'
+			De otro modo:
+				Limpiar Pantalla
+				Escribir 'ERROR AL INGRESAR'
+		FinSegun
+	Hasta Que enter=1 o enter=2 o enter=3
+	
+	//PROCESO DE RECICLAJE
+	Mientras recaudacion='S' Hacer		
+		Escribir 'Hola ',recyclerName,user,userNew ' ¿Qué desea reciclar?'
+		Escribir '  '
+		Escribir '1) Botellas'
+		Escribir '2) Latas'
+		Escribir '3) Tapas'
+		Leer material
+		Limpiar Pantalla
+		Segun material hacer
+			1:
+				Repetir
+					Escribir 'Ingrese el tamaño de Botella que desea reciclar'
+					Escribir '  '
+					Escribir '1) 500ml'
+					Escribir '2) 1 Litro'
+					Escribir '3) 2.5 Litros'
+					Leer tipoBo
+					Segun tipoBo Hacer
+						1:
+							conteoBo1 <- conteoBo1+1
+							Escribir '¿Cuántas botellas de ese tamaño desea reciclar?'
+							Leer num
+							Escribir '¿Desea reciclar otro material? (S/N)'
+							Leer recaudacion
+							conteoBo1 <- (num*conteoBo1)
+							pesoBo1 <- 20*num
+							Limpiar Pantalla
+							finalizar='S'
+						2:
+							conteoBo2 <- conteoBo2+1
+							Escribir '¿Cuántas botellas de este tamaño desea reciclar?'
+							Leer num
+							Escribir '¿Desea reciclar otro material? (S/N)'
+							Leer recaudacion
+							conteoBo2 <- (num*conteoBo2)
+							pesoBo2 <- 24*num
+							Limpiar Pantalla
+						3:
+							conteoBo3 <- conteoBo3+1
+							Escribir '¿Cuántas botellas de ese tamaño desea reciclar?'
+							Leer num
+							Escribir '¿Desea reciclar otro material? (S/N)'
+							Leer recaudacion
+							conteoBo3 <- (num*conteoBo3)
+							pesoBo3 <- 40*num
+							Limpiar Pantalla
+							
+						De Otro Modo:
+							Escribir 'Eligió una opción erronea'
+							Limpiar Pantalla
+					FinSegun
+				Hasta Que tipoBo=1 o tipoBo=2 o tipoBo=3
+			2:
+				Repetir
+					Escribir 'Ingrese tipo de Lata' 
+					Escribir ' '
+					Escribir '1) 150ml'
+					Escribir '2) 355ml'
 					Leer tipoLa
 					Segun tipoLa Hacer
 						1:
 							conteoLa1 <- conteoLa1+1
-							Escribir '¿Cuántas Latas de este tamaño desea ingresar?'
+							Escribir '¿Cuántas Latas de ese tamaño desea reciclar?'
 							Leer num
-							Escribir '¿Desea ingresar otro material de reciclaje? (S/N)'
+							Escribir '¿Desea reciclar otro material? (S/N)'
 							Leer recaudacion
 							conteoLa1=(num*conteoLa1)
+							pesoLa1 <- 35*num
+							Limpiar Pantalla
 						2:
 							conteoLa2 <- conteoLa2+1
-							Escribir '¿Cuántas Latas de este tamaño desea ingresar?'
+							Escribir '¿Cuántas Latas de ese tamaño desea reciclar?'
 							Leer num
-							Escribir '¿Desea ingresar otro material de reciclaje?(S/N)'
+							Escribir '¿Desea reciclar otro material?(S/N)'
 							Leer recaudacion
 							conteoLa2=(num*conteoLa2)
-							
+							pesoLa2 <- 45*num
+							Limpiar Pantalla
 						De Otro Modo:
 							Escribir 'Eligió un tamaño no válido'
 							Escribir 'Por favor ingrese el tamaño nuevamente'
+							Limpiar Pantalla
 					FinSegun
-				SiNo
-					Si(material=3)Entonces
-						Escribir 'Ingrese tipo de tapa aluminio(1) , plastico(2)'
-						Leer tipoTa
-						Segun tipoTa Hacer
-							1:
-								conteoTa1 <- conteoTa1+1
-								Escribir '¿Cuántas Tapas de este tipo desea ingresar?'
-								Leer num
-								Escribir '¿Desea ingresar otro material de reciclaje? (S/N)'
-								Leer recaudacion
-								conteoTa1=(num*conteoTa1)
-							2:
-								conteoTa2 <- conteoTa2+1
-								Escribir '¿Cuántas Tapas de este tipo desea ingresar?'
-								Leer num
-								Escribir '¿Desea ingresar otro material de reciclaje? (S/N)'
-								Leer recaudacion
-								conteoTa2=(num*conteoTa2)
-								
-							De Otro Modo:
-								Escribir 'Eligió un tipo de tapa no válido'
-								Escribir 'Por favor ingrese nuevamente'
-						FinSegun
-					FinSi
-				FinSi
-			FinSi
-		SiNo
-			Escribir 'Opción no válida'
-			Escribir 'Por favor elija un material nuevamente'
-		FinSi		
+				Hasta Que tipoLa=1 o tipoLa=2
+			3:
+				Repetir
+					Escribir 'Ingrese tipo de tapa'
+					Escribir ' '
+					Escribir '1) Chapa de aluminio'
+					Escribir '2) Tapa de plastico'
+					Leer tipoTa
+					Segun tipoTa Hacer
+						1:
+							conteoTa1 <- conteoTa1+1
+							Escribir '¿Cuántas Tapas de ese tipo desea reciclar?'
+							Leer num
+							Escribir '¿Desea reciclar otro material? (S/N)'
+							Leer recaudacion
+							conteoTa1=(num*conteoTa1)
+							pesoTa1 <- 5*num
+							Limpiar Pantalla
+						2:
+							conteoTa2 <- conteoTa2+1
+							Escribir '¿Cuántas Tapas de ese tipo desea reciclar?'
+							Leer num
+							Escribir '¿Desea reciclar otro material? (S/N)'
+							Leer recaudacion
+							conteoTa2=(num*conteoTa2)
+							pesoTa2 <- 3*num
+							Limpiar Pantalla
+							
+						De Otro Modo:
+							Escribir 'Eligió un tipo de tapa no válido'
+							Escribir 'Por favor ingrese nuevamente'
+							Limpiar Pantalla
+					FinSegun
+				Hasta Que tipoTa=1 o tipoTa=2
+			De Otro Modo:
+				Escribir 'Opción no válida'
+				Escribir 'Por favor elija un material nuevamente'
+				Escribir '***********************************'
+				Limpiar Pantalla
+				
+		FinSegun
 	FinMientras
 	
-	Escribir 'Información General de la Operación'
+	//INFO GENERAL DE RECICLAJE / CANTIDADES, MONTOS Y PESO
+	Escribir '***********************************'
+	Escribir 'Información General de Reciclaje'
 	Escribir '***********************************'
 	montoBo1 <- conteoBo1*precioBo1
 	montoBo2 <- conteoBo2*precioBo2
 	montoBo3 <- conteoBo3*precioBo3
-	Escribir 'Total Botella 500ml: ','> ',conteoBo1,' <',' S/. ',montoBo1,' Soles'
-	Escribir 'Total Botella 1L: ','> ',conteoBo2,' <',' S/. ',montoBo2,' Soles'
-	Escribir 'Total Botella 2L: ','> ',conteoBo3,' <',' S/. ',montoBo3,' Soles'
+	Escribir 'Total Botellas 500ml ------ ',conteoBo1,' ----',' S/. ',montoBo1,' Soles'
+	si montoBo1=0 Entonces
+		
+	FinSi
+	Escribir 'Total Botellas 1L --------- ',conteoBo2,' ----',' S/. ',montoBo2,' Soles'
+	Escribir 'Total Botellas 2.5L ------ ',conteoBo3,' ----',' S/. ',montoBo3,' Soles'
 	totalBo <- montoBo1+montoBo2+montoBo3
+	pesoBo <-pesoBo1+pesoBo2+pesoBo3
 	
 	montoLa1 <- conteoLa1*precioLa1
 	montoLa2 <- conteoLa2*precioLa2
-	Escribir 'Total Lata 150ml: ','> ',conteoLa1,' <',' S/. ',montoLa1,' Soles'
-	Escribir 'Total Lata 355ml: ','> ',conteoLa2,' <',' S/. ',montoLa2,' Soles'
+	Escribir 'Total Lata 150ml ---------- ',conteoLa1,' ----',' S/. ',montoLa1,' Soles'
+	Escribir 'Total Lata 355ml ---------- ',conteoLa2,' ----',' S/. ',montoLa2,' Soles'
 	totalLa <- montoLa1+montoLa2
 	
 	montoTa1 <- conteoTa1*precioTa1
 	montoTa2 <- conteoTa2*precioTa2
-	Escribir 'Total de tapas de aluminio: ','> ',conteoTa1,' <',' S/. ',montoTa1,' Soles'
-	Escribir 'Total de tapas de plástico: ','> ',conteoTa2,' <',' S/. ',montoTa2,' Soles'
+	Escribir 'Total de tapas de aluminio -- ',conteoTa1,' --',' S/. ',montoTa1,' Soles'
+	Escribir 'Total de tapas de plástico -- ',conteoTa2,' --',' S/. ',montoTa2,' Soles'
 	totalTa <- montoTa1+montoTa2
+	
+	//RESULTADOS TOTALES
 	Escribir '***********************************'
+	//TOTAL DE OBJETOS RECICLADOS
+	TotalObj <- conteoBo1+conteoBo2+conteoBo3+conteoLa1+conteoLa2+conteoTa1+conteoTa2
+	Si TotalObj=1 Entonces
+		Escribir 'Cantidad de objetos reciclados: ', TotalObj,' unidad'
+	SiNo
+		Escribir 'Cantidad de objetos reciclados: ', TotalObj,' unidades'
+	FinSi
+	//MONTO TOTAL RECAUDADO POR RECICLAJE
 	montoTotal <- montoBo1+montoBo2+montoBo3+montoLa1+montoLa2+montoTa1+montoTa2
-	Escribir 'El monto total de su reciclaje es: ',' S/.',montoTotal,' Soles'
-
-	Escribir '***********************************'
-	Escribir '¿Que operación desea realizar?'
-	Escribir '1) Recargar Tarjeta'
-	Escribir '2) Donar'
-	Escribir '3) Cobrar monto recaudado'
-	Leer op
+	Escribir 'El monto total de su reciclaje es: ',' S/. ',montoTotal,' Soles'
+	//PESO TOTAL RECICLADO POR EL USUARIO
+	pesoTotal <-pesoBo1+pesoBo2+pesoBo3+pesoLa1+pesoLa2+pesoTa1+pesoTa2
+	Si(pesoTotal<=999)Entonces
+		Escribir 'Usted ha reciclado un peso total de: ', pesoTotal, ' gramos'
+	SiNo
+		Si(pesoTotal>=1000)Entonces
+			pesoTotal=pesoTotal*(0.001/1)
+			Si pesoTotal=1 Entonces
+				Escribir 'Usted ha reciclado un peso total de: ', pesoTotal,' Kilo'
+			SiNo
+				Escribir 'Usted ha reciclado un peso total de: ',pesoTotal,' Kilos'
+			FinSi
+		FinSi		
+	FinSi
+	
 	Mientras finalizar='S' Hacer
+		Escribir '***********************************'
+		Escribir '¿Qué operación desea realizar con su recaudación?'
+		Escribir ' '
+		Escribir '1) Recargar Tarjeta'
+		Escribir '2) Hacer una Donación'
+		Escribir '3) Cobrar monto recaudado'
+		Leer op
+		Limpiar Pantalla
 		Segun op  Hacer
 			1:
-				Escribir 'Ingrese número de tarjeta'
-				Leer otros
+				Limpiar Pantalla
+				Escribir 'Ingresando a su tarjeta'
+				Escribir ' '
+				Repetir
+					Escribir 'Confirme la contraseña de su tarjeta por favor'
+					Leer passTarj
+					Escribir '... '
+					Escribir 'Estamos verificando su tarjeta'
+					Escribir '... '
+					Esperar 2000 milisegundos				
+					Si passTarj=12345 Entonces			
+						Escribir 'Ha ingresado a su tarjeta satisfactoriamente'
+						Escribir '  '
+						Escribir 'Ingresando...'
+						Esperar 2000 milisegundos
+						Escribir ' '
+					SiNo
+						Si intento<>0 Entonces
+							Limpiar Pantalla
+							Escribir 'Contraseña incorrecta'
+							Escribir 'Le quedan ',intento,' intentos'
+						FinSi
+						Si intento=0 Entonces
+							Limpiar Pantalla
+							Escribir 'Superaste el límite de intentos'
+							Escribir 'Intentelo en breve nuevamente'
+							Escribir 'Espero 8 segundos por favor'
+							Esperar 8 segundos
+							Escribir ' '
+							finalizar='S'
+						FinSi
+					FinSi
+					intento=intento-1
+				Hasta Que passTarj=12345
+				
+				FECHA_RECICLAJE
+				HORA_RECICLAJE
 				Escribir '*******************************'
-				Escribir 'Se recargo ',' S/.',montoTotal,' Soles',' a la tarjeta N° ',otros
+				Escribir '********VOUCHER EDABLU*********'
 				Escribir '*******************************'
-				Escribir 'Sigue reciclando para obtener más beneficios'
+				Escribir 'Nombre de Usuario: ',RecyclerName,user,userNew
+				TotalObj <- conteoBo1+conteoBo2+conteoBo3+conteoLa1+conteoLa2+conteoTa1+conteoTa2
+				Si TotalObj=1 Entonces
+					Escribir 'Cantidad de objetos reciclados: ', TotalObj,' unidad'
+				SiNo
+					Escribir 'Cantidad de objetos reciclados: ', TotalObj,' unidades'
+				FinSi
+				Escribir 'Monto total recargado a su tarjeta: ',' S/. ',montoTotal,' Soles'
+				//PESO TOTAL RECICLADO POR EL USUARIO
+				pesoTotal <-pesoBo1+pesoBo2+pesoBo3+pesoLa1+pesoLa2+pesoTa1+pesoTa2
+				Si(pesoTotal<=999)Entonces
+					Escribir 'Usted recicló en peso: ', pesoTotal, ' gramos'
+				SiNo
+					Si(pesoTotal>=1000)Entonces
+						pesoTotal=pesoTotal*(0.001/1)
+						Escribir 'Usted recicló en peso: ',pesoTotal,' Kilos'
+					FinSi		
+				FinSi
+				Escribir '*******************************'
+				Escribir 'Gracias por contribuir a cuidar nuestro planeta'
+				Escribir '***********************************'
+				Esperar 1 segundos
+				Escribir 'Su Tarjeta será retirada'
+				Escribir '....'
+				Esperar 3 segundos
+				Escribir 'Se retiró con éxito su tarjeta del sistema'
 				finalizar <- 'N'
 			2:
 				Escribir 'Donar es amor al prójimo'
-				Escribir '***********************************'
-				Escribir 'Ingrese su nombre completo'
-				Leer otros
 				Escribir '***********************************'
 				Escribir 'Fundaciones donde puede hacer una donación'
 				Escribir '1) Caritas del Perú'
 				Escribir '2) Save The Children'				
 				Escribir '3) ANIQUEM'
 				Escribir '4) INABIF'
+				Escribir '5) Teletón'
 				Escribir '***********************************'
 				Escribir 'Seleccione a que fundación desea hacer su donación'
 				Leer funds
+				Limpiar Pantalla
+				Escribir '***********************************'
+				finalizar <- 'N'
 				
 				Segun funds Hacer
 					1:
+						FECHA_RECICLAJE
+						HORA_RECICLAJE
+						Escribir '*******************************'
+						Escribir '********VOUCHER EDABLU*********'
+						Escribir '*******************************'
+						Escribir 'Nombre de Usuario: ',RecyclerName,user,userNew
+						TotalObj <- conteoBo1+conteoBo2+conteoBo3+conteoLa1+conteoLa2+conteoTa1+conteoTa2
+						Si TotalObj=1 Entonces
+							Escribir 'Cantidad de objetos reciclados: ', TotalObj,' unidad'
+						SiNo
+							Escribir 'Cantidad de objetos reciclados: ', TotalObj,' unidades'
+						FinSi
+						//PESO TOTAL RECICLADO POR EL USUARIO
+						pesoTotal <-pesoBo1+pesoBo2+pesoBo3+pesoLa1+pesoLa2+pesoTa1+pesoTa2
+						Si(pesoTotal<=999)Entonces
+							Escribir 'Usted recicló en peso: ', pesoTotal, ' gramos'
+						SiNo
+							Si(pesoTotal>=1000)Entonces
+								pesoTotal=pesoTotal*(0.001/1)
+								Escribir 'Usted recicló en peso: ',pesoTotal,' Kilos'
+							FinSi		
+						FinSi
 						Escribir '***********************************'
+						Escribir 'Monto total donado: ',' S/. ',montoTotal,' Soles'
+						Escribir '  '
 						Escribir 'Fundación Caritas del Perú agradece su donación'						
-						Escribir 'Con su donación miles de niños irán a la escuela'
+						Escribir 'Con su donación ayuda a trasformar vidas'
+						finalizar <- 'N'
 					2:
+						FECHA_RECICLAJE
+						HORA_RECICLAJE
+						Escribir '*******************************'
+						Escribir '********VOUCHER EDABLU*********'
+						Escribir '*******************************'
+						Escribir 'Nombre de Usuario: ',RecyclerName,user,userNew
+						TotalObj <- conteoBo1+conteoBo2+conteoBo3+conteoLa1+conteoLa2+conteoTa1+conteoTa2
+						Si TotalObj=1 Entonces
+							Escribir 'Cantidad de objetos reciclados: ', TotalObj,' unidad'
+						SiNo
+							Escribir 'Cantidad de objetos reciclados: ', TotalObj,' unidades'
+						FinSi
+						//PESO TOTAL RECICLADO POR EL USUARIO
+						pesoTotal <-pesoBo1+pesoBo2+pesoBo3+pesoLa1+pesoLa2+pesoTa1+pesoTa2
+						Si(pesoTotal<=999)Entonces
+							Escribir 'Usted recicló en peso: ', pesoTotal, ' gramos'
+						SiNo
+							Si(pesoTotal>=1000)Entonces
+								pesoTotal=pesoTotal*(0.001/1)
+								Escribir 'Usted recicló en peso: ',pesoTotal,' Kilos'
+							FinSi		
+						FinSi
 						Escribir '***********************************'
+						Escribir 'Monto total donado: ',' S/. ',montoTotal,' Soles'
+						Escribir '  '
 						Escribir 'Save The Children agradece su donación'						
-						Escribir 'Con su apoyo ayuda a prevenir la violencia contra los niños'
+						Escribir 'Con su apoyo ayuda a prevenir la violencia contra los niños y niñas de nuestro país'
+						finalizar <- 'N'
 					3:
+						FECHA_RECICLAJE
+						HORA_RECICLAJE
+						Escribir '*******************************'
+						Escribir '********VOUCHER EDABLU*********'
+						Escribir '*******************************'
+						Escribir 'Nombre de Usuario: ',RecyclerName,user,userNew
+						TotalObj <- conteoBo1+conteoBo2+conteoBo3+conteoLa1+conteoLa2+conteoTa1+conteoTa2
+						Si TotalObj=1 Entonces
+							Escribir 'Cantidad de objetos reciclados: ', TotalObj,' unidad'
+						SiNo
+							Escribir 'Cantidad de objetos reciclados: ', TotalObj,' unidades'
+						FinSi
+						//PESO TOTAL RECICLADO POR EL USUARIO
+						pesoTotal <-pesoBo1+pesoBo2+pesoBo3+pesoLa1+pesoLa2+pesoTa1+pesoTa2
+						Si(pesoTotal<=999)Entonces
+							Escribir 'Usted recicló en peso: ', pesoTotal, ' gramos'
+						SiNo
+							Si(pesoTotal>=1000)Entonces
+								pesoTotal=pesoTotal*(0.001/1)
+								Escribir 'Usted recicló en peso: ',pesoTotal,' Kilos'
+							FinSi		
+						FinSi
 						Escribir '***********************************'
+						Escribir 'Monto total donado: ',' S/. ',montoTotal,' Soles'
+						Escribir '  '
 						Escribir 'ANIQUEM agradece su donación'						
-						Escribir 'Con su apoyo ayuda a curar a más niños que sufren quemaduras'
+						Escribir 'Con su apoyo ayuda a la rehabilitación de niños que sufren quemaduras'
+						finalizar <- 'N'
+						
 					4:
+						FECHA_RECICLAJE
+						HORA_RECICLAJE
+						Escribir '*******************************'
+						Escribir '********VOUCHER EDABLU*********'
+						Escribir '*******************************'
+						Escribir 'Nombre de Usuario: ',RecyclerName,user,userNew
+						TotalObj <- conteoBo1+conteoBo2+conteoBo3+conteoLa1+conteoLa2+conteoTa1+conteoTa2
+						Si TotalObj=1 Entonces
+							Escribir 'Cantidad de objetos reciclados: ', TotalObj,' unidad'
+						SiNo
+							Escribir 'Cantidad de objetos reciclados: ', TotalObj,' unidades'
+						FinSi
+						//PESO TOTAL RECICLADO POR EL USUARIO
+						pesoTotal <-pesoBo1+pesoBo2+pesoBo3+pesoLa1+pesoLa2+pesoTa1+pesoTa2
+						Si(pesoTotal<=999)Entonces
+							Escribir 'Usted recicló en peso: ', pesoTotal, ' gramos'
+						SiNo
+							Si(pesoTotal>=1000)Entonces
+								pesoTotal=pesoTotal*(0.001/1)
+								Escribir 'Usted recicló en peso: ',pesoTotal,' Kilos'
+							FinSi		
+						FinSi
 						Escribir '***********************************'
-						Escribir 'INABIF'
-						Escribir 'Con su contribución ayudará a alimentar muchos niños peruanos'
+						Escribir 'Monto total donado: ',' S/. ',montoTotal,' Soles'
+						Escribir '  '
+						Escribir 'INABIF agradece su donación'
+						Escribir 'Con su contribución ayuda a proteger a los niños, niñas y adolescentes en situación de presunto estado de abandono'
+						finalizar <- 'N'
+						
+					5:
+						
+						FECHA_RECICLAJE
+						HORA_RECICLAJE
+						Escribir '*******************************'
+						Escribir '********VOUCHER EDABLU*********'
+						Escribir '*******************************'
+						Escribir 'Nombre de Usuario: ',RecyclerName,user,userNew
+						TotalObj <- conteoBo1+conteoBo2+conteoBo3+conteoLa1+conteoLa2+conteoTa1+conteoTa2
+						Si TotalObj=1 Entonces
+							Escribir 'Cantidad de objetos reciclados: ', TotalObj,' unidad'
+						SiNo
+							Escribir 'Cantidad de objetos reciclados: ', TotalObj,' unidades'
+						FinSi
+						//PESO TOTAL RECICLADO POR EL USUARIO
+						pesoTotal <-pesoBo1+pesoBo2+pesoBo3+pesoLa1+pesoLa2+pesoTa1+pesoTa2
+						Si(pesoTotal<=999)Entonces
+							Escribir 'Usted recicló en peso: ', pesoTotal, ' gramos'
+						SiNo
+							Si(pesoTotal>=1000)Entonces
+								pesoTotal=pesoTotal*(0.001/1)
+								Escribir 'Usted recicló en peso: ',pesoTotal,' Kilos'
+							FinSi		
+						FinSi
+						Escribir '***********************************'
+						Escribir 'Monto total donado: ',' S/. ',montoTotal,' Soles'
+						Escribir '  '
+						Escribir 'Teletón Perú agradece su donación'
+						Escribir 'Con su contribución ayuda a niños, niñas y jóvenes con discapacidad '
+						finalizar <- 'N'
 						
 					De Otro Modo:
 						Escribir '***********************************'
@@ -199,19 +625,37 @@ Algoritmo Reciclador
 						Escribir 'Vuelva a elegir una fundación por favor'
 				FinSegun
 				
-				Escribir '*******************************'
-				Escribir otros,' acaba de donar ',' S/.',montoTotal,' Soles'
-				Escribir '*******************************'
-				finalizar <- 'N'
 			3:
+				//VOUCHER//
+				FECHA_RECICLAJE
+				HORA_RECICLAJE
 				Escribir '*******************************'
-				Escribir 'Monto a cobrar ',' S/.',montoTotal,' Soles'
+				Escribir '********VOUCHER EDABLU*********'
+				Escribir '*******************************'
+				Escribir 'Nombre de Usuario: ',RecyclerName,user,userNew
+				TotalObj <- conteoBo1+conteoBo2+conteoBo3+conteoLa1+conteoLa2+conteoTa1+conteoTa2
+				Si TotalObj=1 Entonces
+					Escribir 'Cantidad de objetos reciclados: ', TotalObj,' unidad'
+				SiNo
+					Escribir 'Cantidad de objetos reciclados: ', TotalObj,' unidades'
+				FinSi
+				Escribir 'Monto total recaudado: ',' S/. ',montoTotal,' Soles'
+				//PESO TOTAL RECICLADO POR EL USUARIO
+				pesoTotal <-pesoBo1+pesoBo2+pesoBo3+pesoLa1+pesoLa2+pesoTa1+pesoTa2
+				Si(pesoTotal<=999)Entonces
+					Escribir 'Usted recicló en peso: ', pesoTotal, ' gramos'
+				SiNo
+					Si(pesoTotal>=1000)Entonces
+						pesoTotal=pesoTotal*(0.001/1)
+						Escribir 'Usted recicló en peso: ',pesoTotal,' Kilos'
+					FinSi		
+				FinSi				
 				Escribir '*******************************'
 				Escribir 'Gracias por contribuir a cuidar nuestro planeta'
 				Escribir '***********************************'
 				finalizar <- 'N'
 			De Otro Modo:
-				Escribir 'Opcion incorrecta'
+				Escribir 'Opción incorrecta'
 				finalizar <- 'S'
 		FinSegun
 	FinMientras
